@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<!-- 网页使用的语言 -->
+<html lang="zh-CN">
+<head>
+    <!-- 指定字符集 -->
+    <meta charset="utf-8">
+    <!-- 使用Edge最新的浏览器的渲染方式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- viewport视口：网页可以根据设置的宽度自动进行适配，在浏览器的内部虚拟一个容器，容器的宽度与设备的宽度相同。
+    width: 默认宽度与设备的宽度相同
+    initial-scale: 初始的缩放比，为1:1 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>面试预约系统</title>
+
+    <link rel="shortcut icon" href="#" />
+
+    <!-- 1. 导入CSS的全局样式 -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- 2. jQuery导入，建议使用1.9以上的版本 -->
+    <script src="js/jquery-2.1.0.min.js"></script>
+    <!-- 3. 导入bootstrap的js文件 -->
+   <!-- <script src="js/bootstrap.min.js"></script>-->
+    <style type="text/css">
+        td, th {
+            text-align: center;
+        }
+    </style>
+
+    <style>
+        #body{
+            background-image: url("images/6.jpg");
+            background-size:100% 100%;
+            background-attachment: fixed;
+        }
+    </style>
+
+    <script>
+        $(function () {
+            load();
+        });
+        function load(){
+            $.ajax({
+                url: "/interview",
+                type:"get",
+                dataType: "json",
+                success: function(data){
+						console.log(data);
+						var s = "";
+                        var j=j+1;
+                        s += "<tr>";
+                        s += "<th> <input id=\""+data.stu_id+ "\" type=\"checkbox\"> </th>";
+                        s += "<td>" + data.stu_name + "</td>";
+						s += "<td>" + data.stu_choice_score + "</td>";
+						s += "<td>" + data.stu_program_score + "</td>";
+						s += "<td>" + data.stu_total_score + "</td>";
+						s += "<td>" + data.stu_speculative_score + "</td>";
+						s += "<td>" + data.stu_code_score + "</td>";
+						s += "<td>" + data.stu_speculative_score + "</td>";
+						s += "<td>" + data.stu_think_score + "</td>";
+                        s += "<td>" + data.stu_expression_score + "</td>";
+                        s += "<td>" + data.stu_interview_techer + "</td>";
+                        s += "<td>" + data.stu_techer_suggest + "</td>";
+                        s += "<td>" + data.stu_interview_time + "</td>";
+                        s+="<td > <button class='btn btn-default btn-sm' onclick=\"again_load()\" > 查询</button> " +
+                            "<button class='btn btn-default btn-sm' onclick=\"click_load()\" > 预约</button>"+
+                            "</td>";
+                        s += "</tr>";
+                    $("#classinfo").html(s);
+                }
+            });
+        }
+		function click_load(){
+			window.location.href="post_interview.html";
+		}
+		
+		function again_load(){
+			window.location.href="interview.html";
+		}
+    </script>
+</head>
+<body id="body">
+<div class="container">
+    <h3 style="text-align: center">用户信息</h3>
+    <div style="float: left;">
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="exampleInputName2">邮箱</label>
+                <input name="name" type="text" class="form-control" id="exampleInputName2" >
+            </div>
+            <button id="submit1" type="button" class="btn btn-default">查询</button>
+        </form>
+    </div>
+    <table border="1" class="table table-bordered table-hover">
+        <tr class="one_class">
+            <th>选择</th>
+            <th>姓名</th>
+            <th>选择题分数</th>
+            <th>编程题分数</th>
+			<th>笔试总分</th>
+            <th>理论知识</th>
+            <th>代码能力</th>
+			<th>思维能力</th>
+            <th>表达能力</th>
+			<th>面试总分</th>
+            <th>面试老师</th>
+			<th>面试建议</th>
+			<th>面试时间</th>
+			<th>操作</th>
+        </tr>
+        <tbody id="classinfo" valign="middle">
+
+        </tbody>
+    </table>
+    <div>
+        <nav aria-label="Page navigation">
+            <ul id="all" class="pagination">
+
+            </ul>
+        </nav>
+    </div>
+</div>
+</body>
+</html>

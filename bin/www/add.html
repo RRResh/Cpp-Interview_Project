@@ -1,0 +1,147 @@
+<!-- HTML5文档-->
+<!DOCTYPE html>
+<!-- 网页使用的语言 -->
+<html lang="zh-CN">
+<head>
+    <!-- 指定字符集 -->
+    <meta charset="utf-8">
+    <!-- 使用Edge最新的浏览器的渲染方式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- viewport视口：网页可以根据设置的宽度自动进行适配，在浏览器的内部虚拟一个容器，容器的宽度与设备的宽度相同。
+    width: 默认宽度与设备的宽度相同
+    initial-scale: 初始的缩放比，为1:1 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>添加用户</title>
+
+    <!-- 1. 导入CSS的全局样式 -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- 2. jQuery导入，建议使用1.9以上的版本 -->
+    <script src="js/jquery-2.1.0.min.js"></script>
+    <!-- 3. 导入bootstrap的js文件 -->
+    <!--<script src="js/bootstrap.min.js"></script>-->
+    <script>
+        $(function () {
+            $("#submit").click(function () {
+                var name=$("#name").val();
+                var password=$("#password").val();
+                var email=$("#email").val();
+				var school=$("#school").val();
+				var major=$("#major").val();
+				var class_no=$("#class_no").val();
+				var phone_num=$("#phone_num").val();
+                $.ajax({
+                    url:"/register",
+                    data:{
+					"name":name,
+					"password":password,
+					"email":email,
+					"school":school,
+					"major":major,
+					"class_no":class_no,
+					"phone_num":phone_num
+					},
+                    type: "post",
+                    timeout: 10000,
+                    dataType: "json",
+                    success:function (data) {
+                        console.log(data);
+                        if(data.is_insert===true){
+                            //成功了
+                            alert("添加成功");
+                            window.location.href="index.html";
+                        }else{
+                            alert("添加失败");
+                        }
+                    },
+                    error : function (a,b,c) {
+                        console.log(a);
+                        console.log(b);
+                        console.log(c);
+                    }
+                });
+            });
+            $("#return").click(function () {
+                window.location.href="add.html";
+            });
+            $("#reset").click(function () {
+                $("#name").val("");
+                $("#password").val("");
+                $("#email").val("");
+				$("#school").val("");
+				$("#major").val("");
+				$("#class_no").val("");
+				$("#phone_num").val("");
+            });
+        });
+    </script>
+	  <style>
+		  html, body {
+			  width: 100%;
+			  height: 100%;
+			  margin: 0;
+			  padding: 0;
+			  overflow: auto;
+		  }
+
+		  body {
+			  background: url(images/6.jpg) no-repeat 100% 100%;
+			  background-size: cover;
+		  }
+		  /*#body{
+			  background-image: url("images/5.jpg");
+             !* background-size:100% 100%;
+              background-attachment: fixed;*!
+      		}*/
+</style>
+</head>
+
+<body>
+	<form id = "fromID">
+    <div class="container" style="width: 400px;margin-top: 110px;background-color: rgba(255,255,255,0.8)">
+		<h3 style="text-align: center;">用户注册</h3>
+        <div class="form-group">
+            <label for="name">姓名：</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="请输入姓名">
+        </div>
+
+        <div class="form-group">
+            <label for="password">password</label>
+            <input type="text" class="form-control" id="password" name="password" placeholder="请设置密码"/>
+        </div>
+		
+        <div class="form-group">
+            <label for="email">Email：</label>
+            <input type="text" class="form-control" id="email" name="email" placeholder="请输入邮箱地址"/>
+        </div>
+		
+		<div class="form-group">
+            <label for="school">school：</label>
+            <input type="text" class="form-control" id="school" name="school" placeholder="请输入学校"/>
+        </div>
+		
+		<div class="form-group">
+            <label for="major">major：</label>
+            <input type="text" class="form-control" id="major" name="major" placeholder="请输入专业"/>
+        </div>
+		
+		<div class="form-group">
+            <label for="class_no">class_no：</label>
+            <input type="text" class="form-control" id="class_no" name="class_no" placeholder="请输入年级"/>
+        </div>
+		
+		<div class="form-group">
+            <label for="phone_num">phone_num：</label>
+            <input type="text" class="form-control" id="phone_num" name="phone_num" placeholder="请输入电话号码"/>
+        </div>
+    </form>
+
+    <div class="form-group" style="text-align: center">
+        <input id="submit" class="btn btn-primary" type="button" value="提交" />
+        <input id="reset" class="btn btn-default" type="reset" value="重置" />
+        <input id="return" class="btn btn-default" type="button" value="返回" />
+    </div>
+
+</div>
+</body>
+</html>
